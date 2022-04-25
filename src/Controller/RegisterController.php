@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\RegisterType;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Php;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
