@@ -22,7 +22,7 @@ class RegisterType extends AbstractType
             ->add('firstname', TextType::class, [
                 'label' => 'Votre prénom',
                 'attr' => ['placeholder' => 'Merci de saisir votre Prénom'],
-                'constraints' =>[new NotBlank(),  new Length([
+                'constraints' => [new NotBlank(),  new Length([
                     'min' => 2,
                     'max' => 30
                 ])]
@@ -30,35 +30,40 @@ class RegisterType extends AbstractType
             ->add('lastname', TextType::class, [
                 'label' => 'Votre Nom ',
                 'attr' => ['placeholder' => 'Merci de saisir votre Nom'],
-                'constraints' =>[new NotBlank(),  new Length([
+                'constraints' => [new NotBlank(),  new Length([
                     'min' => 2,
                     'max' => 30
                 ])]
             ])
-            ->add('email', EmailType::class,[
-                'label' => 'Votre Email',
-                'attr' => ['placeholder' => ' Merci de saisir votre Email'],
-                'constraints' =>[new NotBlank(), new Length([
-                    'min' => 2,
-                    'max' => 30
-                ])]
-            ]
+            ->add(
+                'email',
+                EmailType::class,
+                [
+                    'label' => 'Votre Email',
+                    'attr' => ['placeholder' => ' Merci de saisir votre Email'],
+                    'constraints' => [new NotBlank(), new Length([
+                        'min' => 2,
+                        'max' => 30
+                    ])]
+                ]
             )
-            ->add('password', RepeatedType::class,[
-                'type' => PasswordType::class,
-                'invalid_message' => 'Le mot de passe et la confirmation doivent être identique',
-                'label' => 'Votre mot de passe',
-                'required' => true,
-                'first_options'=> ['label' => 'Mot de passe', 'attr'=> ['placeholder'=> 'Merci de saisir votre Mot de Passe']],
-                'second_options' =>['label' => 'Confirmez votre mot de passe', 'attr'=> ['placeholder'=> 'Merci de Confirmer votre Mot de Passe']],
-                'constraints' => [new NotBlank()]
-            ]
-               
+            ->add(
+                'password',
+                RepeatedType::class,
+                [
+                    'type' => PasswordType::class,
+                    'invalid_message' => 'Le mot de passe et la confirmation doivent être identique',
+                    'label' => 'Votre mot de passe',
+                    'required' => true,
+                    'first_options' => ['label' => 'Mot de passe', 'attr' => ['placeholder' => 'Merci de saisir votre Mot de Passe']],
+                    'second_options' => ['label' => 'Confirmez votre mot de passe', 'attr' => ['placeholder' => 'Merci de Confirmer votre Mot de Passe']],
+                    'constraints' => [new NotBlank()]
+                ]
+
             )
             ->add('submit', SubmitType::class, [
                 'label' => "S'inscrire"
-            ])
-            ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
