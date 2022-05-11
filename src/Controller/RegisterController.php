@@ -20,6 +20,7 @@ class RegisterController extends AbstractController
     private $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
+    // J'inject EntityManagerInterface dans $entityManager
     {
         $this->entityManager = $entityManager;
     }
@@ -31,6 +32,7 @@ class RegisterController extends AbstractController
         $form = $this->createForm(RegisterType::class, $user);
 
         $form->handleRequest($request);
+        // demande d'écouter
 
         if ($form->isSubmitted() && $form->isValid()) {
 
