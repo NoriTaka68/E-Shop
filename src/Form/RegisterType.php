@@ -22,7 +22,7 @@ class RegisterType extends AbstractType
             ->add('firstname', TextType::class, [
                 'label' => 'Votre prénom',
                 'attr' => ['placeholder' => 'Merci de saisir votre Prénom'],
-                'constraints' => [new NotBlank(),  new Length([
+                'constraints' => [new NotBlank(), new Length([
                     'min' => 2,
                     'max' => 30
                 ])]
