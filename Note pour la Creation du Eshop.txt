@@ -1,0 +1,189 @@
+Note pour la Creation du Eshop
+
+1 Creation du projet avec Symfony :
+
+symfony console new Eshop -- full
+
+Cette commande nous permet de créer un application avec tout les outils necessaires.
+
+Pour verifer que tout fonctionne bien je vais lancé le projet.
+Je me rend dans la racide du Projet et je tape la commande "Symfony serve".
+
+La le serveur interne de Symfony ce lance et l'application et disponible a l'adresse " https://127.0.0.1:8000"
+
+Comme nous le pouvons constaté nous avons l'ecran d'acceuille classique de tout projet Symfony.
+
+Pour pouvoir créer une application avec differente pages nous devons créer des routes  afin d'acceder a ces differentes pages .
+
+Par exemple la route /home.
+
+Pour cela nous allons utilisé la commande "Symfony console make:controller ".
+Comme vous allez pouvoir le constaté.
+
+Suite a la creation de notre controller , que nous avons nomé HomeController. Nous ponvons constaté la creation du repertoire Home dans le dossior "Templates".
+
+Ce dossier "Home" Contient le rendu HTML de notre controlleur. 
+
+La Classe HomeController contient la Logique de notre Controlleur.
+
+Le serveur Web de Symfony va ecouté les requetes Http et quand on va appelé la route "\home".
+Celui si va cherche le controlle qui repond a cette requete.
+
+<-------------------------------------------------------------------------------------------------------------------------->
+
+=> Creation de la d'inscription.
+
+Pour creer la page d'inscription j'utilise la console. avec la commande "symfony console make:controlle"
+
+et j'appel cette route "RegisterController".
+
+apres cela je vais modifier le template afin d'y integre le formulaire d'inscription.
+Je vais rejouter une condition If afin de ne plus avoir mon carousel dans la page d'inscription.
+
+Dans le template "base.html.twig je rajoute {% if block('carousel') is define %} et {% endif %}
+
+Suite a ces manipulations je n'aurai plus mon caroussel ni sur ma page d'acceuille ni sur la dans les autres pages.
+
+Pour rajouter le carousel dans les pages desirés, j'ai qu'a rajoute la notation {% block carousel  %} et le fermé en utilissant {% endblock %}.
+
+Afin d'avoir un pages plus esthetique nous allons rajouter une class mt-5
+ a la div " container-fluid marketing " avec une condition " if  " {% if block('caroussel') is not defined  %} mt-5 {% endif %} "
+ cela nous permet d'avoir une marge entre le carousel et la div qui est en dessous.
+ Cette marge ne sera rajouter uniquement si le block carousel n'est pas definie.
+
+Apres la creation du template , nous allons creer le formulaire.
+
+nous allons toujours faire appel a notre outils " symfony console make:form " 
+
+j'indique le nom du formulaire : register
+apres il me demande avec quel entité je veux faire le liens . Dans mon cas c'est la Class User .
+
+Suite a cela symfony va nous creer un fichier src/Form/registertype
+
+Dans la Class registertype Nous avons une methode buildForm. Qui sera en charge de créer notre formulaire.
+dans cette derniere methode nous avons $builder, qui contient les differents champs!!!
+
+-> email
+->password
+
+Revenons a notre Class RegisterController, pour pouvoir créer un utilisateur je dois creer instancier une class user .
+
+en creant une variable $user = new User(), suite a ca je vais injecté le formulaire dans la page. Avec la methode $this->creatForm() dans cette methode j'injecte la class de mon formulaire registertype et en Deuxieme parametres la class au quel ce formulaire est lier.
+
+apres cela je n'es plus qu'a injecté mon formulaire dans le template.
+en indiquant comme 2eme parametres de la methode render . En fesant appel a la methode createView()
+
+Suite a cela je vais dans mon template et je rajoute mon formulaire avec " {{ form(form)}} "
+
+
+
+
+
+
+
+
+
+
+
+
+<-------------------------------------------------------------------------------------------------------------------------->
+=> Creation de La page d'authentification.
+
+Pour Creer la page de connexion nous allons utilise la commande "symfony console make:auth.
+- Cette commande va nous permettre de Creer un formulaire d'authetification, afin que l'utilisateur puise ce connect.
+Lorsque nous executons la commande nous avons deux Options : 
+
+-Empty authentificator
+-Login form authentificator
+
+Dans notre cas nous allons utilisé la deuxieme option. "Login form authentificator".
+
+Lorsque nous utilisons cette Options symfony va faire plusieurs choses pour nous.
+
+1 Elle va créer un SecurityController les routes de Login et de Logout
+
+2 Ainsi qu'une Class Authenticator
+
+3 Mais aussi qu'une Class "LoginFormAuthenticator"
+
+Dans SecurityController je vais pouvoir indiqué les differentes routes : 
+
+- La Route de login " /connexion"
+ainsi que la Route logout "/deconnection"
+
+<------------------------------------------------------------------------------------------------------------------------->
+
+=> Creation du formulaire d'inscription
+
+pour la creation de formulaire je vais utilisé la commande " symfony Console make form ".
+
+Suite a cela j'ai une nous dossier qui ce créer " src/form/registertype".
+
+Cette nouvelle entité sera lier a notre Class User.
+Cette nouvelle classe nous permettra de construire et customiser notre Formulaire d'inscription.
+
+Apres la creation du formulaire, je vais l'instancier dans la pages d'inscription. "RegisterController"
+
+dans la fonction index de la classe registre controller j'instancie un la class user afin de creer un utilisateur lors de l'execusion du formulaire.
+Je creer une variable $user et je lui injecte la class user.
+
+Suite a cela j'implemente aussi la class registertype en fesant appel a la methode createForme.
+En fesant appel a cette methode je dois lui indiqué aussi la class a quelle le form et lier.
+Dans notre cas c'est la class User .
+
+apres cela, je vais injecté le formulaire dans la vue, via la variable $form :
+
+- "return $this->render('registre/index.html.twig', ['form' => $form->creatView() ]);
+
+quand j'ai fais ca je vais implemente mon formulaire dans mon template avec la variable {{ form(form)}}
+
+
+Je peu constaté que le formulaire est bien implémenté dans la pages d'inscription. Mais le resultat n'est pas super beau.
+
+En consultant la documentation Symfony j'ai pu constaté qu'il etait tout a fait possible customiser le formulaire.
+
+en rajoutant "form_themes: ['bootstrap_5_layout.html.twig']" dans le fichier app/config/packages/twig.yaml.
+
+Cela nous permet d'avoir de beau formulaire, au designe de bootstrap.
+
+
+Apres cela nous allons utilise le symfony console make:entity
+
+
+
+
+
+
+
+
+
+
+
+
+
+<------------------------------------------------------------------------------------------------------------------------->
+
+=> Creation des pages d'acceuille de l'utilisateur :
+
+Apres L'authentification, l'utilisateur aura besoin d'avoir accés a ca page personnel. Pour cela nous allons créer une Route " AccountControlleur " al'aide de la commande "Symfony console make:controller" .
+
+Suite a ca , Symfony ma creé un controlleur "AccountControlleur" mais aussi un Template twig  dans le repertoire templates/account/index.html.twig.
+
+Dans ce Controlleur, nous avons une route qui indique "/account". Que je vais modifié afin de l'appelé "/compte".
+
+Afin d'attribué un role a l'utilisateur connecté nous allons modifié quelques parametres.
+
+dans app/config/packages/security.yaml
+
+Tout d'abord nous allons 
+Nous pouvons attribué un role a l'utilisateur " user " ou "admin", nous allons attribué un role grace a un chemin.
+donc tout les urls qui contiennent "/compte" , les utilisateurs connecté avec la route "/compte" auront un roles.
+Pour cela nous allons de commenté la ligne "Roles users" et modifier le path "^/compte".
+
+<-------------------------------------------------------------------------------------------------------------------------->
+
+=> Modification de la pages d'acceuille, j'ai modifier le template de la pages d'acceuille
+
+
+
+
