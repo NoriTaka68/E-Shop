@@ -32,7 +32,7 @@ class RegisterController extends AbstractController
         $form = $this->createForm(RegisterType::class, $user);
 
         $form->handleRequest($request);
-        // demande d'écouter
+        // demande d'écouter la requete
 
         if ($form->isSubmitted() && $form->isValid()) {
 

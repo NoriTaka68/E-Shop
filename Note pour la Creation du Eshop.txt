@@ -131,7 +131,9 @@ Suite a cela j'implemente aussi la class registertype en fesant appel a la metho
 En fesant appel a cette methode je dois lui indiqué aussi la class a quelle le form et lier.
 Dans notre cas c'est la class User .
 
-apres cela, je vais injecté le formulaire dans la vue, via la variable $form :
+apres cela, je vais injecté le formulaire dans la vue, via la variable $form et un tableau.
+La méthode qui permet la creation du formulaire dans la vue : " $form->createView()"
+
 
 - "return $this->render('registre/index.html.twig', ['form' => $form->creatView() ]);
 
@@ -148,6 +150,40 @@ Cela nous permet d'avoir de beau formulaire, au designe de bootstrap.
 
 
 Apres cela nous allons utilise le symfony console make:entity
+
+J'utilise cette commande afin de modifier ma class User.
+Je fais cela afin d'ajouter de nouvelles proprieté.
+
+je rajoute la proprieté :
+
+-firstname => de type varchar de 255 caracteres, ce champ ne peu pas etre nul dans la bdd
+
+-Lastname => de type varchar de 255 caracteres, ce champ ne peu pas etre nul dans la bdd
+
+apres avoir rajouter ces nouvelles proprietées a ma Class User je vais effectué une migration pour mettre a jour ma bdd
+
+- Apres cela je vais faire un "Symfony console doctrine:migration:migrate
+
+suite a cela je peu modifier mon registertype et ajouter de nouveau champ.
+dans $builder
+
+comme dans ma class je vais ajouter firstname en rajoutant un TexteType. cela indique que ce champ ne sera que du texte et rien d'autre.
+Dans le 3eme parametres de la methode add. je peu ajouter le label du input. Dans notre cas ce sera "Votre prénom".
+
+Dans le 4eme parametres je peu ajouter le parametre 'attr' et comme parametre un tableau.
+Le tableau aura comme clef 'placeholder' et comme valeur "Merci de saisir votre prénom"
+
+Je repete cela sur les differents input du formulaire afin le resultat souhaité
+
+Suite a cela on va crere une derniere methode Add afin de creer le bouton de soumission de formulaire.
+
+"->add('submit', SubmitType, ['label' => "s'incrire])
+
+le 3eme parametre de la methode add me permet de personnaliser le bouton submit du formulaire.
+
+
+
+
 
 
 
