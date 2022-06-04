@@ -173,7 +173,9 @@ Dans le 3eme parametres de la methode add. je peu ajouter le label du input. Dan
 Dans le 4eme parametres je peu ajouter le parametre 'attr' et comme parametre un tableau.
 Le tableau aura comme clef 'placeholder' et comme valeur "Merci de saisir votre prénom"
 
-Je repete cela sur les differents input du formulaire afin le resultat souhaité
+Je repete cela sur les differents input du formulaire afin le resultat souhaité.
+
+
 
 Suite a cela on va crere une derniere methode Add afin de creer le bouton de soumission de formulaire.
 
