@@ -30,6 +30,7 @@ class RegisterController extends AbstractController
     {
         $user = new User();
         $form = $this->createForm(RegisterType::class, $user);
+        // Le formulaire est relié a ma class User
 
         $form->handleRequest($request);
         // demande d'écouter la requete
