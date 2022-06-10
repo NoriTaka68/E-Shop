@@ -46,7 +46,7 @@
                     </li>
                 </ul>
                 {% if app.user %}
-                <a href="{{ path('account')}}">Mon Compte </a> | <a href="{{ path('app_logout')}}"> Inscription</a>
+                <a href="{{ path('account')}}">Mon Compte </a> | <a href="{{ path('app_logout')}}"> Déconnexion</a>
                 {% else %}
                 <a href="{{ path('app_login')}}">Connexion </a> | <a href="{{ path('app_register')}}"> Inscription</a>
                 {% endif %}

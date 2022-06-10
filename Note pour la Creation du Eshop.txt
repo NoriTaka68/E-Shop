@@ -183,17 +183,38 @@ Suite a cela on va crere une derniere methode Add afin de creer le bouton de sou
 
 le 3eme parametre de la methode add me permet de personnaliser le bouton submit du formulaire.
 
+<==========================================================================================================================>
 
+La je vais persister les données du formulaires dans la base de données .
 
+avant cela je vais verifer si le fomulaire est valide (Par rapport aux contrainte que nous avons choisi )et si il est soumission.
+Avec la condition " if ($form->isSubmitted() && $form->isValid()) ".
+si les conditions sont vrai on peut :
 
+->Injecté les données du formulaire dans la variable User que nous avons créer precedament .
 
+suite a cela il ne me reste plus qu'a persiter les données dans la BDD .
+"$this->entityManager->persist($user);
+ $this->entityManager->flush();"
 
+Apres cela il me reste plus qu'a encoder les password
+avant de faire cela je vais verifer la configuration de mon fichier security.yaml
 
+Je verifer la methode de hashage "algorithm: auto", signifie la meuiller me disponible actuelement.
 
+Pour hasher le mot de passes je vais utiliser l'injection de dependance.
 
+Dans la methode index nous allons injecté l'interface "UserPasswordHasherInterface" .
+Qui sera indispensable pour hasher les mdps.
 
+Suite a cela je vais crée une variable $password.
+je vais incrementé cette variable avec la données que j'ai recupere de mon formulaire.
 
+Dans notre cas  $user->getPassword().
+Mais avant cela je dois hasher cette valeur avec la methode "$encoder->hashPassword" , qui vient de "UserPasswordHasherInterface"
 
+apres avoir hasher mon mot de passe j'ai plus qu'a le reinjecté je avec la methode
+$user->setPassword($password)
 
 
 
@@ -221,6 +242,62 @@ Pour cela nous allons de commenté la ligne "Roles users" et modifier le path "^
 <-------------------------------------------------------------------------------------------------------------------------->
 
 => Modification de la pages d'acceuille, j'ai modifier le template de la pages d'acceuille
+
+
+<-------------------------------------------------------------------------------------------------------------------------->
+
+=> Ajout de contrainte dans le formulaire
+
+Pour evité certaines erreurs des utilisateurs. Je vais ajouter des contraintes dans le fomulaire afin d'obliger les differents utilisateurs a saisir les informations souhaitées.
+
+Dans notre cas nous allons utilisé l'attribu "constraints" pour faire cela.
+Dans notre premier "input" qui est le prenom nous allons mettre une contraite de longueur dans cette input.
+En utilisant l'option "new Length('min' => 2,'max' => 30)" dans les parametres on indiques que nous voulons par exemples un minimum de 2 caracteres et un maximum de 30 caracteres.
+
+Je vais insere differentes contraintes sur les elements du  formulaire, afin d'avoir un formulaire exploitable.
+
+Je vais aussi profiter pour traduire les erreurs du formulaires en francais, car pour l'instant ils sont en anglais
+pour ce faire je vais dans /config/packages/translation.yaml. Dans l'option default_local: fr, a la place de fr .
+
+<==========================================================================================================================>
+
+Creation du formulaire d'authentification:
+
+Pour cela , je vais utiliser la commande "symfony console make: auth".
+Suite a l'execusition de cette commande, symfony me propose plusieur option 
+"quel type de login authentification je souhaite "
+
+- Un formulaire vide ou un "login form authentificator"
+Dans mon cas j'au besoin d'un login form authentificator
+
+Apres ca Symfony me demande le Nom de ma Class. Je vais l'appelé LoginFormAuthenticator.
+Suite a cela je dois indique le nom de la du controlleur, moi je vais 'apple SecurityController.
+
+Je valide est symfony me crée tout cela.
+
+<==========================================================================================================================>
+
+=> Creation de l'espace Membre
+
+Pour la creation de l'espace membre je vais utilisé la commande "symfony console make:controller".
+Suite a cela j'ai mon controlleur qui a etait génére.
+
+Cela va me permet de crée un espace personnel de l'utilisateur.
+
+Pour cela je vais me reconfigure le template créer en meme temps que le controller .
+
+dans le Templateje vais insere un "block content" avec un element <h1>Mon Compte </h1>
+
+Je rajoute un element <p> "paragraphe" avec un petit texte de bienvenue.
+
+Dans ce petit text je vais inclure le prenom de l'utilisateur via la variable "app.user.firstname" .
+
+apres cela je vais ajouter une redirection au SecurityController
+
+"return new RedirectResponse($this->urlGenerator->generate('account'));"
+
+Cela va permettre de redirigé l'utilisateur apres la connexion. Sur ca page "account"
+
 
 
 
