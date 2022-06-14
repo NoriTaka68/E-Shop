@@ -9,6 +9,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/eshop.css') }}" rel="stylesheet">
 
     <style>
         .bd-placeholder-img {
@@ -42,14 +43,23 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ path('home')}}">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{{ path('home')}}">Nos Produits</a>
+                    </li>
+                    <li class="nav-item active" >
+                        <a class="nav-link" href="">Qui sommes nous </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">Contact </a>
                     </li>
                 </ul>
-                {% if app.user %}
-                <a href="{{ path('account')}}">Mon Compte </a> | <a href="{{ path('app_logout')}}"> Déconnexion</a>
-                {% else %}
-                <a href="{{ path('app_login')}}">Connexion </a> | <a href="{{ path('app_register')}}"> Inscription</a>
-                {% endif %}
+                <div class="navbar-item-custom">
+                    {% if app.user %}
+                        <a href="{{ path('account')}}">Mon Compte <small>({{ app.user.firstname }})</small> </a> | <a href="{{ path('app_logout')}}"> Déconnexion</a>
+                    {% else %}
+                        <a href="{{ path('app_login')}}">Connexion </a> | <a href="{{ path('app_register')}}"> Inscription</a>
+                    {% endif %}
+
+                </div>
             </div>
         </nav>
     </header>
@@ -133,9 +143,12 @@
         </div><!-- /.container -->
 
         <!-- FOOTER -->
-        <footer class="container-fluid">
-            <p class="float-right"><a href="#">Back to top</a></p>
-            <p>&copy; 2017-2020 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        <footer class="footer-custom">
+
+            <p> InfoJef. 2022 &copy;<br>
+
+
+
         </footer>
     </main>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
