@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Entity\Category;
+use App\Entity\Product;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -16,6 +18,8 @@ class DashboardController extends AbstractDashboardController
     {
         
     }
+
+
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
@@ -47,13 +51,15 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('E-Shop');
+            ->setTitle('InfoJef');
     }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Home', 'fa fa-home');
-        yield MenuItem::linkToCrud('The Label', 'fa fa-user', User::class);
-        yield MenuItem::section('Products');
+        yield MenuItem::linkToCrud('Users', 'fa fa-user', User::class);
+        yield MenuItem::linkToCrud('Category','fa fa-list', Category::class);
+        yield MenuItem::linkToCrud('Product','fa fa-tag', Product::class);
+        
     }
 }
