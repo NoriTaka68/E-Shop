@@ -1,0 +1,32 @@
+@startuml diagramme de Class
+
+class User {
+    
+    -id 
+    -email
+    -role
+    -password
+    -firstname
+    -lastname
+    -
+}
+
+class Category {
+
+    -id
+    -name
+    
+}
+
+class Product {
+    
+    -id
+    -name
+    -slug
+    -illustration
+    -subtitle
+    -description
+    -price
+}
+
+@enduml
