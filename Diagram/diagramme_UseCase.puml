@@ -1,8 +1,11 @@
 @startuml DiagrammeCasdutilisation
+left to right direction
 
 :Client: -->(Inscription)
 :Client: -->(Connection a l'application)
 :Client: -->(Mettre a Jour ses information)
 :Client: -->(Commander)
+:Client: -->(Validé Commande)
+:Client: -->(Déconnection)
 
 @enduml
